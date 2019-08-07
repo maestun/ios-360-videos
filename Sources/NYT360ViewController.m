@@ -194,7 +194,9 @@ CGRect NYT360ViewControllerSceneBoundsForScreenBounds(CGRect screenBounds) {
 #pragma mark - SCNSceneRendererDelegate
 
 - (void)renderer:(id <SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
-    [self.cameraController updateCameraAngleForCurrentDeviceMotion];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.cameraController updateCameraAngleForCurrentDeviceMotion];
+    });
 }
 
 #pragma mark - NYT360CameraControllerDelegate
