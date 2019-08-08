@@ -80,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithView:(SCNView *)view motionManager:(id<NYT360MotionManagement>)motionManager NS_DESIGNATED_INITIALIZER;
 
+#pragma mark - Snapshot
+- (UIImage *)snapshot;
+
 #pragma mark - Observing Device Motion
 
 - (void)startMotionUpdates;

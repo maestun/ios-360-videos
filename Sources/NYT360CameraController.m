@@ -65,6 +65,11 @@ static inline CGPoint subtractPoints(CGPoint a, CGPoint b) {
     
     return self;
 }
+    
+#pragma mark - Snapshot
+- (UIImage *)snapshot {
+    return [_view snapshot];
+}
 
 #pragma mark - Observing Device Motion
 

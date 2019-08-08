@@ -34,3 +34,4 @@ ocunit.xml
 *.xcbkptlist
 *.xcsettings
 *.xcscmblueprint
+DerivedData
