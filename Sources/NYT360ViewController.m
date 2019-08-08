@@ -82,6 +82,11 @@ CGRect NYT360ViewControllerSceneBoundsForScreenBounds(CGRect screenBounds) {
     _sceneView.delegate = nil;
 }
 
+#pragma mark - Snapshot
+- (UIImage *)snapshot {
+    return [_cameraController snapshot];
+}
+
 #pragma mark - Playback
 
 - (void)play {
