@@ -107,6 +107,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)reorientVerticalCameraAngleToHorizon:(BOOL)animated;
 
+/**
+ *  Reorients the camera's horizontal angle component so it's pointing directly at the origin.
+ *
+ *  @param animated Passing `YES` will animate the change with a standard duration.
+ */
+- (void)reorientHorizontalCameraAngleToOrigin:(BOOL)animated;
+
+/**
+ *  Reorients the camera to its original vertical and horizontal angles.
+ *
+ *  @param animated Passing `YES` will animate the change with a standard duration.
+ */
+- (void)resetCamera:(BOOL)animated;
+
 #pragma mark - Panning Options
 
 /**

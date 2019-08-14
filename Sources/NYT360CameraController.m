@@ -158,7 +158,64 @@ static inline CGPoint subtractPoints(CGPoint a, CGPoint b) {
         }];
         [SCNTransaction commit];
     }
+}
+
+- (void)reorientHorizontalCameraAngleToOrigin:(BOOL)animated {
     
+    if (animated) {
+        self.isAnimatingReorientation = YES;
+        [SCNTransaction begin];
+        [SCNTransaction setAnimationDuration:[CATransaction animationDuration]];
+    }
+    
+    CGPoint position = self.currentPosition;
+    position.x = M_PI;
+    self.currentPosition = position;
+    
+    SCNVector3 eulerAngles = self.pointOfView.eulerAngles;
+    eulerAngles.y = M_PI; // Horizontal camera angle = rotation around the y axis.
+    self.pointOfView.eulerAngles = eulerAngles;
+    
+    if (animated) {
+        [SCNTransaction setCompletionBlock:^{
+            // Reset the transaction duration to 0 since otherwise further
+            // updates from device motion and pan gesture recognition would be
+            // subject to a non-zero implicit duration.
+            [SCNTransaction setAnimationDuration:0];
+            self.isAnimatingReorientation = NO;
+        }];
+        [SCNTransaction commit];
+    }
+}
+
+- (void)resetCamera:(BOOL)animated {
+    
+    if (animated) {
+        self.isAnimatingReorientation = YES;
+        [SCNTransaction begin];
+        [SCNTransaction setAnimationDuration:[CATransaction animationDuration]];
+    }
+    
+    CGPoint position = self.currentPosition;
+    position.x = M_PI;
+    position.y = 0;
+    self.currentPosition = position;
+    
+    SCNVector3 eulerAngles = self.pointOfView.eulerAngles;
+    eulerAngles.x = 0;
+    eulerAngles.y = M_PI;
+    self.pointOfView.eulerAngles = eulerAngles;
+    
+    if (animated) {
+        [SCNTransaction setCompletionBlock:^{
+            // Reset the transaction duration to 0 since otherwise further
+            // updates from device motion and pan gesture recognition would be
+            // subject to a non-zero implicit duration.
+            [SCNTransaction setAnimationDuration:0];
+            self.isAnimatingReorientation = NO;
+        }];
+        [SCNTransaction commit];
+    }
 }
 
 #pragma mark - Panning Options
@@ -203,6 +260,13 @@ static inline CGPoint subtractPoints(CGPoint a, CGPoint b) {
             self.rotateStart = self.rotateCurrent;
             NYT360EulerAngleCalculationResult result = NYT360PanGestureChangeCalculation(self.currentPosition, self.rotateDelta, self.view.bounds.size, self.allowedPanGesturePanningAxes);
             self.currentPosition = result.position;
+            
+            
+            NSLog(@"CURRENT EULER X %f / Y %f", self.pointOfView.eulerAngles.x, self.pointOfView.eulerAngles.y);
+            NSLog(@"FUTURE EULER X %f / Y %f", result.eulerAngles.x, result.eulerAngles.y);
+            NSLog(@"CURRENT POSITION X %f / Y %f", self.currentPosition.x, self.currentPosition.y);
+
+            
             self.pointOfView.eulerAngles = result.eulerAngles;
             if (self.compassAngleUpdateBlock) {
                 self.compassAngleUpdateBlock(self.compassAngle);

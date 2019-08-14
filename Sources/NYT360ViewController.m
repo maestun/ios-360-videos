@@ -127,6 +127,14 @@ CGRect NYT360ViewControllerSceneBoundsForScreenBounds(CGRect screenBounds) {
     [self.cameraController reorientVerticalCameraAngleToHorizon:animated];
 }
 
+- (void)reorientHorizontalCameraAngleToOrigin:(BOOL)animated {
+    [self.cameraController reorientHorizontalCameraAngleToOrigin:animated];
+}
+
+- (void)resetCamera:(BOOL)animated {
+    [self.cameraController resetCamera:animated];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
