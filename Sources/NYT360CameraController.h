@@ -36,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @param method       The method by which the user moved the camera.
  */
 - (void)cameraController:(NYT360CameraController *)controller userInitallyMovedCameraViaMethod:(NYT360UserInteractionMethod)method;
-
+- (void)cameraController:(NYT360CameraController *)controller userDidBeginTouch:(CGPoint)locationInView;
+- (void)cameraController:(NYT360CameraController *)controller userDidEndTouch:(CGPoint)locationInView;
 @end
 
 @interface NYT360CameraController : NSObject <UIGestureRecognizerDelegate>

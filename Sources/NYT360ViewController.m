@@ -218,4 +218,14 @@ CGRect NYT360ViewControllerSceneBoundsForScreenBounds(CGRect screenBounds) {
     [self.delegate videoViewController:self userInitallyMovedCameraViaMethod:method];
 }
 
+- (void)cameraController:(NYT360CameraController *)controller
+       userDidBeginTouch:(CGPoint)locationInView {
+    [self.delegate videoViewController:self userDidBeginTouch:locationInView];
+}
+
+- (void)cameraController:(NYT360CameraController *)controller
+         userDidEndTouch:(CGPoint)locationInView {
+    [self.delegate videoViewController:self userDidEndTouch:locationInView];
+}
+
 @end

@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)videoViewController:(NYT360ViewController *)viewController userInitallyMovedCameraViaMethod:(NYT360UserInteractionMethod)method;
 
+- (void)videoViewController:(NYT360ViewController *)viewController userDidBeginTouch:(CGPoint)locationInView;
+- (void)videoViewController:(NYT360ViewController *)viewController userDidEndTouch:(CGPoint)locationInView;
 @end
 
 /**
@@ -58,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
  *  @seealso NYT360ViewControllerDelegate
  */
 @property (nullable, nonatomic, weak) id <NYT360ViewControllerDelegate> delegate;
+
+
 
 #pragma mark - Initializers
 

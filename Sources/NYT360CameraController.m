@@ -253,6 +253,7 @@ static inline CGPoint subtractPoints(CGPoint a, CGPoint b) {
     switch (recognizer.state) {
         case UIGestureRecognizerStateBegan:
             self.rotateStart = point;
+            [self.delegate cameraController:self userDidBeginTouch:point];
             break;
         case UIGestureRecognizerStateChanged:
             self.rotateCurrent = point;
@@ -260,18 +261,17 @@ static inline CGPoint subtractPoints(CGPoint a, CGPoint b) {
             self.rotateStart = self.rotateCurrent;
             NYT360EulerAngleCalculationResult result = NYT360PanGestureChangeCalculation(self.currentPosition, self.rotateDelta, self.view.bounds.size, self.allowedPanGesturePanningAxes);
             self.currentPosition = result.position;
-            
-            
-            NSLog(@"CURRENT EULER X %f / Y %f", self.pointOfView.eulerAngles.x, self.pointOfView.eulerAngles.y);
-            NSLog(@"FUTURE EULER X %f / Y %f", result.eulerAngles.x, result.eulerAngles.y);
-            NSLog(@"CURRENT POSITION X %f / Y %f", self.currentPosition.x, self.currentPosition.y);
-
-            
+//            NSLog(@"CURRENT EULER X %f / Y %f", self.pointOfView.eulerAngles.x, self.pointOfView.eulerAngles.y);
+//            NSLog(@"FUTURE EULER X %f / Y %f", result.eulerAngles.x, result.eulerAngles.y);
+//            NSLog(@"CURRENT POSITION X %f / Y %f", self.currentPosition.x, self.currentPosition.y);
             self.pointOfView.eulerAngles = result.eulerAngles;
             if (self.compassAngleUpdateBlock) {
                 self.compassAngleUpdateBlock(self.compassAngle);
             }
             [self reportInitialCameraMovementIfNeededViaMethod:NYT360UserInteractionMethodTouch];
+            break;
+        case UIGestureRecognizerStateEnded:
+            [self.delegate cameraController:self userDidEndTouch:point];
             break;
         default:
             break;
