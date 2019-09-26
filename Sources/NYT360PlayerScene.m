@@ -208,7 +208,12 @@
         [self.player pause];
         self.videoNode.paused = YES;
     }
-    
+}
+
+- (void)reset {
+    [self pause];
+    [self.player seekToTime:kCMTimeZero];
+    [self play];
 }
 
 #pragma mark - NYTSKVideoNodeDelegate

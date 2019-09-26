@@ -90,6 +90,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)pause;
 
+/**
+ *  Reset the view controller's video.
+ */
+- (void)reset;
+
 #pragma mark - Camera Movement
 
 /**
