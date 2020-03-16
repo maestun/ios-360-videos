@@ -216,6 +216,11 @@
     [self play];
 }
 
+- (void)cleanup {
+    [self pause];
+    [self.player replaceCurrentItemWithPlayerItem:nil];
+}
+
 #pragma mark - NYTSKVideoNodeDelegate
 
 - (BOOL)videoNodeShouldAllowPlaybackToBegin:(NYTSKVideoNode *)videoNode {

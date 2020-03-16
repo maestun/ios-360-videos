@@ -79,6 +79,7 @@ CGRect NYT360ViewControllerSceneBoundsForScreenBounds(CGRect screenBounds) {
 }
 
 - (void)dealloc {
+    [self.playerScene cleanup];
     _sceneView.delegate = nil;
 }
 
